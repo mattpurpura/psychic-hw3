@@ -19,8 +19,7 @@
 
 
     <script>
-        //SECTION 1: Setting up how the player wins
-        // defining initial variables
+        // defining variables
         var wins = 0;
         var losses = 0;
         var guessesLeft = 9; 
@@ -31,7 +30,9 @@
         
 
         document.onkeyup = function(event) {
-            
+            var userGuess = event.key.toLowerCase();
+            console.log(userGuess);
+            //if the player's guess is correct
             if (event.key === magicLetter) {
                 wins++;
                 magicLetter = alphabet[Math.floor(Math.random() * 26)];
@@ -40,21 +41,20 @@
                 winner = event.key;
                 console.log("YOU WON!");
             }
-
+            //if the player's guess is incorrect
             else {
                 guessesLeft--;
                 
-                pastGuesses.push(event.key);
-                console.log("Guesses left: " + guessesLeft);
-                console.log("Past Guesses: " + pastGuesses);
+                pastGuesses.push(userGuess);
             }
-
+            //if the player runs out of guesses/loses
             if (guessesLeft < 1){
                 losses++;
                 magicLetter = alphabet[Math.floor(Math.random() * 26)];
                 guessesLeft = 9;
                 pastGuesses = [];
-            }            
+            } 
+            //editing html display           
             document.getElementById("winCount").textContent = wins;
             document.getElementById("lossCount").textContent = losses;
             document.getElementById("guessCount").textContent = guessesLeft;
