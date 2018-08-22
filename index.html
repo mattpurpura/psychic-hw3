@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>The Psychic Game</h1>
+
+    <h3>Guess what letter I'm thinking of.</h3>
+    
+    <h3>Wins: <span id="winCount">0</span></h3>
+    <h3>Losses: <span id="lossCount">0</span></h3> 
+    <h3>Guesses Left: <span id="guessCount">9</span></h3> 
+    <h3>Your Guessses So Far: <span id="userGuesses"></span></h3>
+    <h3>Last winning letter: <span id="winningLetter"></span></h3>
+
+
+    <script>
+        //SECTION 1: Setting up how the player wins
+        // defining initial variables
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9; 
+        var pastGuesses = [];
+        var alphabet = ["a", "b", "c", "d", "e", 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        var magicLetter = alphabet[Math.floor(Math.random() * 26)];
+        var winner;
+        
+
+        document.onkeyup = function(event) {
+            
+            if (event.key === magicLetter) {
+                wins++;
+                magicLetter = alphabet[Math.floor(Math.random() * 26)];
+                guessesLeft = 9;
+                pastGuesses = [];
+                winner = event.key;
+                console.log("YOU WON!");
+            }
+
+            else {
+                guessesLeft--;
+                
+                pastGuesses.push(event.key);
+                console.log("Guesses left: " + guessesLeft);
+                console.log("Past Guesses: " + pastGuesses);
+            }
+
+            if (guessesLeft < 1){
+                losses++;
+                magicLetter = alphabet[Math.floor(Math.random() * 26)];
+                guessesLeft = 9;
+                pastGuesses = [];
+            }            
+            document.getElementById("winCount").textContent = wins;
+            document.getElementById("lossCount").textContent = losses;
+            document.getElementById("guessCount").textContent = guessesLeft;
+            document.getElementById("userGuesses").textContent = pastGuesses;
+            document.getElementById("winningLetter").textContent = winner;
+        }
+    </script>
+</body>
+</html>
